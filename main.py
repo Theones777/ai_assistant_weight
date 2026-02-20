@@ -21,6 +21,7 @@ async def main():
     bot = Bot(
         token=Config.BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
     )
+    bot.db = db_client
 
     # include routers
     dp.include_router(common_router)
