@@ -1,5 +1,21 @@
 services:
-  bot:
-    build: .
-    container_name: ai_assistant
-    restart: on-failure
+#  bot:
+#    build: .
+#    container_name: ai_assistant
+#    depends_on:
+#      - db
+#    restart: on-failure
+
+  db:
+    image: postgres:latest
+    container_name: ai_assistant_db
+    restart: always
+    env_file:
+      - .env
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+#volumes:
+#  postgres_data:
