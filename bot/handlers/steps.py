@@ -2,6 +2,13 @@ from collections import OrderedDict
 
 from bot.states import Register
 
+
+async def normalize_gender(input_text: str):
+    if "м" in input_text.lower():
+        return "мужчина"
+    return "женщина"
+
+
 STEPS = OrderedDict({
     Register.name: {
         "field": "name",
@@ -9,12 +16,13 @@ STEPS = OrderedDict({
         "validator": lambda x: True,
         "error": ""
     },
-    # Register.gender: {
-    #     "field": "gender",
-    #     "question": "Введите Ваш пол:",
-    #     "validator": lambda x: True,
-    #     "error": ""
-    # },
+    Register.gender: {
+        "field": "gender",
+        "question": "Введите Ваш пол:",
+        "validator": lambda x: True,
+        "normalizer": normalize_gender,
+        "error": ""
+    },
     # Register.age: {
     #     "field": "age",
     #     "question": "Введите возраст:",

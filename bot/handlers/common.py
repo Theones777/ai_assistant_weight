@@ -28,8 +28,9 @@ async def register_handler(message: Message, state: FSMContext):
         return
 
     # Сохраняем данные
+    value = await step_config["normalizer"](message.text) if "normalizer" in step_config else message.text
     await state.update_data(**{
-        step_config["field"]: message.text
+        step_config["field"]: value
     })
 
     # Определяем следующий шаг
