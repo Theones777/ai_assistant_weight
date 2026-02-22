@@ -5,7 +5,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 
-from bot.clients.AI import AIAgent
+from bot.clients.Chat_GPT import AIAgent
 from bot.clients.db import DBClient
 from bot.handlers.common import common_router
 from bot.log import logger
@@ -15,7 +15,6 @@ from config import Config
 async def main():
     # db init
     db_client = DBClient(db_url=Config.POSTGRES_DSN)
-    await db_client.open()
 
     # ai_assistant init
     ai_assistant = AIAgent()
