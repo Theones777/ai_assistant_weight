@@ -5,6 +5,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 
+from bot.clients.AI import AIAgent
 from bot.clients.db import DBClient
 from bot.handlers.common import common_router
 from bot.log import logger
@@ -16,12 +17,16 @@ async def main():
     db_client = DBClient(db_url=Config.POSTGRES_DSN)
     await db_client.open()
 
+    # ai_assistant init
+    ai_assistant = AIAgent()
+
     # bot init
     dp = Dispatcher(storage=MemoryStorage())
     bot = Bot(
         token=Config.BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
     )
     bot.db = db_client
+    bot.ai = ai_assistant
 
     # include routers
     dp.include_router(common_router)
